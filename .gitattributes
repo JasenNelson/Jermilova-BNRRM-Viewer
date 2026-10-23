@@ -1,0 +1,9 @@
+# Text files are stored with LF line endings so every checkout (Windows, Linux, Vercel)
+# builds from the same bytes.
+* text=auto eol=lf
+# Pack files are verified byte for byte (size and SHA-256) against asset-manifest.json, and
+# the manifest itself is pinned, so no checkout may rewrite their line endings.
+public/** -text
+asset-manifest.json -text
+claim-register.json -text
+LICENSE -text

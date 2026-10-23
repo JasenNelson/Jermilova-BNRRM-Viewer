@@ -1,0 +1,1476 @@
+@import "tailwindcss";
+
+/* Tailwind v4: use class-based dark mode (not OS media query) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Government/Public Service palette - design-tokens.ts is the source of truth */
+
+:root {
+  /* System stacks keep local/offline builds independent from Google Fonts. */
+  --font-app-sans: Arial, Helvetica, sans-serif;
+  --font-app-mono: "Courier New", Courier, monospace;
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+  --card: #ffffff;
+  --card-foreground: #0F172A;
+  --popover: #ffffff;
+  --debug-bg: #F8FAFC;
+  --text-primary: #0F172A;
+  --popover-foreground: #0F172A;
+  --primary: #0369A1;
+  --primary-foreground: #ffffff;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #F1F5F9;
+  --accent-foreground: #0F172A;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0369A1;
+  --radius: 0.5rem;
+  --light-bg: #F8FAFC;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-app-sans);
+  --font-mono: var(--font-app-mono);
+}
+
+/* Light mode (default) */
+.light {
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+  --card: #ffffff;
+  --card-foreground: #0F172A;
+  --popover: #ffffff;
+  --popover-foreground: #0F172A;
+  --primary: #0369A1;
+  --primary-foreground: #ffffff;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #F1F5F9;
+  --accent-foreground: #0F172A;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0369A1;
+}
+
+/* Dark mode */
+.dark {
+  --background: #0F172A;
+  --foreground: #F1F5F9;
+  --card: #1E293B;
+  --card-foreground: #F1F5F9;
+  --popover: #1E293B;
+  --popover-foreground: #F1F5F9;
+  --primary: #38BDF8;
+  --primary-foreground: #0F172A;
+  --secondary: #334155;
+  --secondary-foreground: #F1F5F9;
+  --muted: #334155;
+  --muted-foreground: #CBD5E1;
+  --accent: #334155;
+  --accent-foreground: #F1F5F9;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #475569;
+  --input: #475569;
+  --ring: #38BDF8;
+}
+
+/* ========================================
+   DARK MODE CATCH-ALL OVERRIDES
+   Minimal set for pages not yet using
+   Tailwind dark: variants directly.
+   ======================================== */
+
+/* The legacy `html.dark .bg-*` / `.text-*` / `.border-*` / gradient
+ * catch-alls below were authored when dark mode was migrated for the
+ * survey/poll pages. They apply ONLY on screen (`@media screen`) so
+ * window.print() does not have to defeat their (0,3,1)-specificity
+ * !important rules with even-higher-specificity print overrides.
+ * Codex 2026-05-18 R10 recommended this scope-out approach: cheaper +
+ * cleaner than the alternative of per-selector specificity-matching in
+ * the @media print block at end-of-file. */
+@media screen {
+  /* Root background */
+  html.dark,
+  html.dark body {
+    background-color: #0F172A !important;
+  }
+
+  html.dark .bg-white {
+    background-color: #1E293B !important;
+  }
+
+  /* Text color catch-alls for un-migrated pages (WCAG AA compliant #CBD5E1) */
+  html.dark .text-gray-900 { color: #F1F5F9 !important; }
+  html.dark .text-gray-800 { color: #E2E8F0 !important; }
+  html.dark .text-gray-700 { color: #CBD5E1 !important; }
+  html.dark .text-gray-600 { color: #CBD5E1 !important; }
+  html.dark .text-gray-500 { color: #CBD5E1 !important; }
+  html.dark .text-slate-500 { color: #CBD5E1 !important; }
+
+  /* Border catch-alls */
+  html.dark .border-gray-200 { border-color: #475569 !important; }
+  html.dark .border-gray-100 { border-color: #334155 !important; }
+
+  /* Background catch-alls */
+  html.dark .bg-gray-50  { background-color: #334155 !important; }
+  html.dark .bg-gray-100 { background-color: #334155 !important; }
+
+  /* Hover states */
+  html.dark .hover\:bg-gray-50:hover  { background-color: #334155 !important; }
+  html.dark .hover\:bg-gray-100:hover { background-color: #475569 !important; }
+  html.dark .hover\:bg-white:hover    { background-color: #334155 !important; }
+
+  /* ========================================
+     GRADIENT DARK MODE OVERRIDES
+     For un-migrated survey/poll pages that
+     use light-only gradients.
+     ======================================== */
+
+  html.dark .bg-gradient-to-br.from-blue-50.to-indigo-50,
+  html.dark .bg-gradient-to-br.from-indigo-50.to-blue-50,
+  html.dark .bg-gradient-to-br.from-green-50.to-blue-50,
+  html.dark .bg-gradient-to-br.from-blue-50.to-green-50,
+  html.dark .bg-gradient-to-br.from-green-50.to-emerald-50,
+  html.dark .bg-gradient-to-br.from-green-50.via-blue-50.to-emerald-50,
+  html.dark .bg-gradient-to-br.from-gray-50.to-indigo-50,
+  html.dark .bg-gradient-to-br.from-red-50.to-pink-50,
+  html.dark .bg-gradient-to-br.from-purple-50.to-pink-50,
+  html.dark .bg-gradient-to-br.from-amber-50.to-yellow-50,
+  html.dark .bg-gradient-to-br.from-yellow-50.to-orange-50 {
+    background: linear-gradient(to bottom right, #1E293B, #334155) !important;
+  }
+
+  html.dark .bg-gradient-to-r.from-blue-50.to-indigo-50,
+  html.dark .bg-gradient-to-r.from-gray-50.to-blue-50,
+  html.dark .bg-gradient-to-r.from-red-50.to-orange-50 {
+    background: linear-gradient(to right, #1E293B, #334155) !important;
+  }
+}
+
+/* Colored gradient containers - white text stays white */
+.bg-gradient-to-br.from-red-500.to-red-600 *,
+.bg-gradient-to-br.from-orange-500.to-orange-600 *,
+.bg-gradient-to-br.from-yellow-500.to-yellow-600 *,
+.bg-gradient-to-br.from-blue-500.to-blue-600 *,
+.bg-gradient-to-br.from-green-500.to-green-600 * {
+  color: #ffffff !important;
+}
+
+/* ========================================
+   THIRD-PARTY / SVG OVERRIDES
+   Genuine specificity needs.
+   ======================================== */
+
+/* Recharts SVG text in dark mode */
+html.dark svg text {
+  fill: #CBD5E1 !important;
+}
+
+/* Pie chart center text contrast */
+html.dark .absolute.inset-0 .text-gray-700 {
+  color: #ffffff !important;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8) !important;
+  font-weight: 700 !important;
+}
+html.dark .absolute.inset-0 .text-gray-500 {
+  color: #ffffff !important;
+  text-shadow: 0 0 4px rgba(0,0,0,0.8) !important;
+  font-weight: 600 !important;
+}
+.light .absolute.inset-0 .text-gray-700 {
+  color: #1E293B !important;
+  text-shadow: 0 0 4px rgba(255,255,255,0.8) !important;
+  font-weight: 700 !important;
+}
+.light .absolute.inset-0 .text-gray-500 {
+  color: #334155 !important;
+  text-shadow: 0 0 4px rgba(255,255,255,0.8) !important;
+  font-weight: 600 !important;
+}
+
+/* ========================================
+   FORM INPUT DARK MODE
+   ======================================== */
+
+html.dark input[type="text"],
+html.dark input[type="email"],
+html.dark input[type="password"],
+html.dark textarea,
+html.dark select {
+  color: #F1F5F9 !important;
+}
+
+/* ========================================
+   SEMANTIC COLOR DARK MODE ADJUSTMENTS
+   ======================================== */
+
+/* Semantic color dark-mode adjustments. Wrapped in @media screen so
+ * they don't apply on print and need not be defeated specifically by
+ * the print block. Codex 2026-05-18 R11. */
+@media screen {
+  /* Status badges - keep semantic colors visible */
+  html.dark .bg-green-100 { background-color: #064e3b !important; }
+  html.dark .bg-red-50    { background-color: #450a0a !important; }
+  html.dark .bg-blue-50   { background-color: #0c4a6e !important; }
+  html.dark .bg-purple-50 { background-color: #3b0764 !important; }
+
+  html.dark .text-green-800 { color: #6ee7b7 !important; }
+  html.dark .text-purple-800 { color: #e9d5ff !important; }
+  html.dark .text-purple-700 { color: #c4b5fd !important; }
+  html.dark .text-purple-600 { color: #a78bfa !important; }
+
+  /* Status badge text in dark mode */
+  html.dark .bg-green-100.text-green-800 { color: #6ee7b7 !important; }
+  html.dark .bg-blue-100.text-blue-800 {
+    background-color: #0c4a6e !important;
+    color: #7dd3fc !important;
+  }
+
+  /* Indigo -> sky migration for dark mode */
+  html.dark .text-indigo-700 { color: #7dd3fc !important; }
+  html.dark .text-indigo-600 { color: #7dd3fc !important; }
+  html.dark .text-indigo-500 { color: #38bdf8 !important; }
+}
+
+/* ========================================
+   LANDING PAGE PHASE BADGE
+   ======================================== */
+
+.phase-1-text {
+  color: #0F172A !important;
+}
+
+/* ========================================
+   SYSTEM PREFERENCE FALLBACK
+   Removed: @media (prefers-color-scheme: dark) block.
+   Theme is controlled ONLY by .dark/.light class on <html>,
+   not by OS media queries. This ensures the toggle works.
+   The .dark class block above (line 79) handles dark variables.
+   ======================================== */
+
+/* ========================================
+   DIRECTION B DESIGN TOKENS - "BATHYMETRIC"
+   Locked visual direction recorded in DESIGN.md (2026-08-14). Layered
+   depth drawn from sediment settling under water; cool blue-green
+   estuary teal accent, mineral ochre secondary. Reference values are the
+   --db-* declarations in the Direction B mockup produced the same day.
+
+   This is a token layer only - it does not style any component. Values
+   are consumed by future Matrix Options Calculator work (step 2+ of the
+   redesign). Purely additive: does not touch any existing custom
+   property, class, or rule above this block.
+
+   Both themes are mandatory (DESIGN.md "Themes are not optional"). Dark
+   is not an inversion - relationships are rebuilt so the accent still
+   signals. Wired into the EXISTING theme mechanism: this app toggles
+   themes via a `.light` / `.dark` class applied to both <html> and
+   <body> by ThemeContext.tsx (see the .light / .dark blocks above and
+   `@custom-variant dark (&:where(.dark, .dark *));` at the top of this
+   file) - there is no `data-theme` attribute and no third "system"
+   theme state (ThemeContext's Theme type is only 'light' | 'dark', and
+   it defaults to 'light' rather than reading OS preference). The dark
+   token values below are therefore scoped to `.dark`, matching that
+   mechanism exactly, not `[data-theme="dark"]` as used in the standalone
+   mockup file.
+   ======================================== */
+
+:root {
+  /* ---- LIGHT THEME (Harmonized SSTAC Slate & Sky) ---- */
+  --db-depth-0: #f8fafc;
+  --db-depth-1: #f1f5f9;
+  --db-depth-2: #e2e8f0;
+  --db-depth-3: #cbd5e1;
+  --db-surface: #ffffff;
+  --db-surface-raised: #ffffff;
+
+  --db-text-primary: #0f172a;
+  --db-text-secondary: #475569;
+  --db-text-muted: #64748b;
+  --db-text-on-accent: #ffffff;
+
+  --db-border: #e2e8f0;
+  --db-border-strong: #cbd5e1;
+  --db-contour: rgba(15, 23, 42, 0.05);
+  --db-contour-strong: rgba(15, 23, 42, 0.10);
+
+  --db-accent: #0284c7;
+  --db-accent-strong: #0369a1;
+  --db-accent-tint: #f0f9ff;
+  --db-accent-tint-border: #bae6fd;
+
+  --db-sediment: #b45309;
+  --db-sediment-tint: #fffbeb;
+  --db-sediment-tint-border: #fde68a;
+
+  --db-pass: #047857;
+  --db-pass-tint: #ecfdf5;
+  --db-pass-tint-border: #a7f3d0;
+  --db-fail: #b91c1c;
+  --db-fail-tint: #fff1f2;
+  --db-fail-tint-border: #fecdd3;
+  --db-review: #b45309;
+  --db-review-tint: #fffbeb;
+  --db-review-tint-border: #fde68a;
+
+  --db-focus-ring: #0284c7;
+
+  --db-shadow-1: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --db-shadow-2: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+
+  --db-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --db-font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --db-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.dark {
+  /* ---- DARK THEME: Deep Slate & Sky ---- */
+  --db-depth-0: #020617;
+  --db-depth-1: #0f172a;
+  --db-depth-2: #1e293b;
+  --db-depth-3: #334155;
+  --db-surface: #0f172a;
+  --db-surface-raised: #1e293b;
+
+  --db-text-primary: #f8fafc;
+  --db-text-secondary: #cbd5e1;
+  --db-text-muted: #94a3b8;
+  --db-text-on-accent: #ffffff;
+
+  --db-border: #1e293b;
+  --db-border-strong: #334155;
+  --db-contour: rgba(248, 250, 252, 0.05);
+  --db-contour-strong: rgba(248, 250, 252, 0.10);
+
+  --db-accent: #38bdf8;
+  --db-accent-strong: #0284c7;
+  --db-accent-tint: rgba(14, 165, 233, 0.15);
+  --db-accent-tint-border: rgba(14, 165, 233, 0.3);
+
+  --db-sediment: #f59e0b;
+  --db-sediment-tint: rgba(245, 158, 11, 0.15);
+  --db-sediment-tint-border: rgba(245, 158, 11, 0.3);
+
+  --db-pass: #34d399;
+  --db-pass-tint: rgba(16, 185, 129, 0.15);
+  --db-pass-tint-border: rgba(16, 185, 129, 0.3);
+  --db-fail: #f87171;
+  --db-fail-tint: rgba(244, 63, 94, 0.15);
+  --db-fail-tint-border: rgba(244, 63, 94, 0.3);
+  --db-review: #fbbf24;
+  --db-review-tint: rgba(251, 191, 36, 0.15);
+  --db-review-tint-border: rgba(251, 191, 36, 0.3);
+
+  --db-focus-ring: #38bdf8;
+
+  --db-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --db-shadow-2: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0);     }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ========================================
+   BN-RRM: React Flow Customizations
+   ======================================== */
+
+.bn-rrm-wrapper .react-flow {
+  background-color: #f8fafc; /* slate-50 */
+}
+
+html.dark .bn-rrm-wrapper .react-flow {
+  background-color: #0f172a; /* slate-900 */
+}
+
+.bn-rrm-wrapper .react-flow__node {
+  font-family: inherit;
+}
+
+.bn-rrm-wrapper .react-flow__handle {
+  width: 12px;
+  height: 12px;
+}
+
+.bn-rrm-wrapper .react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.bn-rrm-wrapper .react-flow__minimap {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .bn-rrm-wrapper .react-flow__minimap {
+  background-color: rgba(30, 41, 59, 0.9);
+}
+
+.bn-rrm-wrapper .react-flow__controls {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .bn-rrm-wrapper .react-flow__controls {
+  background-color: #1e293b;
+}
+
+.bn-rrm-wrapper .react-flow__controls-button {
+  border: none;
+  background: white;
+}
+
+html.dark .bn-rrm-wrapper .react-flow__controls-button {
+  background: #1e293b;
+  fill: #e2e8f0;
+}
+
+.bn-rrm-wrapper .react-flow__controls-button:hover {
+  background: #f1f5f9;
+}
+
+html.dark .bn-rrm-wrapper .react-flow__controls-button:hover {
+  background: #334155;
+}
+
+/* ========================================
+   BN-RRM: Leaflet Dark Mode
+   ======================================== */
+
+html.dark .bn-rrm-wrapper .leaflet-control-attribution {
+  background: rgba(30, 41, 59, 0.8) !important;
+  color: #94a3b8 !important;
+}
+
+html.dark .bn-rrm-wrapper .leaflet-control-attribution a {
+  color: #60a5fa !important;
+}
+
+html.dark .bn-rrm-wrapper .cluster-marker {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   GLOBAL CUSTOM SCROLLBARS (LIGHT & DARK MODE)
+   Ensures scrollbars blend cleanly across all tables,
+   Evidence Library, modals, and drawers in both themes.
+   ======================================== */
+
+html {
+  color-scheme: light;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+html.dark,
+:is(.dark, .dark *) {
+  color-scheme: dark;
+  scrollbar-width: thin;
+  scrollbar-color: #475569 transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-thumb,
+:is(.dark, .dark *) ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 9999px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover,
+:is(.dark, .dark *) ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ========================================
+   PRINT OVERRIDES (publication PDF style)
+   Forces light-mode publication colors for any window.print() invocation
+   (matrix-options TWG Review Download PDF button + Jermilova review
+   portal Download PDF button per PR #139 follow-up).
+   Without these, dark-mode dashboard users get a dark-on-dark PDF because
+   the html.dark .bg-white { ... !important } catch-alls above + Tailwind
+   dark: variants apply on print just like on screen.
+
+   Cherry-pick merge note: this block keeps the HEAD-side targeted
+   utility-class overrides (PR #121 12-round resolution + codex 2026-05-19
+   P2 hotfix) and folds in f60672b's additional selectors for code blocks
+   + tables + links + headings so the long Jermilova methodology paper
+   (7365 lines incl. tables + code) prints cleanly.
+   ======================================== */
+
+@media print {
+  /* Root: never inherit dark backgrounds for the printed page. */
+  html, html.dark, body, html.dark body {
+    color-scheme: light !important;
+    background: #ffffff !important;
+    color: #1f2937 !important; /* slate-800 */
+  }
+
+  /* Beat the html.dark legacy catch-alls + Tailwind dark: variant
+     compilations on the small subset of classes the printed document
+     actually uses (TWG Review center content + MathRenderer body). */
+  html.dark .bg-white,
+  html.dark .dark\:bg-slate-950,
+  html.dark .dark\:bg-slate-900,
+  html.dark .dark\:bg-slate-800,
+  html.dark .bg-slate-50,
+  html.dark .bg-slate-100 {
+    background: #ffffff !important;
+  }
+
+  html.dark .text-white,
+  html.dark .dark\:text-white,
+  html.dark .dark\:text-slate-100,
+  html.dark .dark\:text-slate-200,
+  html.dark .dark\:text-slate-300,
+  html.dark .dark\:text-slate-400 {
+    color: #1f2937 !important; /* slate-800 */
+  }
+
+  html.dark [class*="border-slate-"] {
+    border-color: #e2e8f0 !important; /* slate-200 */
+  }
+
+  /* MathRenderer applies prose-invert in dark mode. Revert for print. */
+  .dark\:prose-invert,
+  .prose.dark\:prose-invert {
+    color: #1f2937 !important;
+  }
+
+  /* Headings: deep slate for hierarchy. */
+  html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+  h1, h2, h3, h4, h5, h6 {
+    color: #0f172a !important; /* slate-900 */
+  }
+
+  /* Strong emphasis -- black on white paper. */
+  html.dark strong, strong { color: #000000 !important; }
+
+  /* Inline code + fenced code blocks: legible on print without losing
+     the visual distinction from prose. Folded in from f60672b for the
+     long Jermilova methodology paper which has many code blocks. */
+  html.dark code, code {
+    color: #be123c !important; /* rose-700 */
+    background-color: #f1f5f9 !important; /* slate-100 */
+  }
+  html.dark pre, pre {
+    background-color: #f8fafc !important; /* slate-50 */
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+  html.dark pre code, pre code {
+    background-color: transparent !important;
+    color: #0f172a !important;
+  }
+
+  pre {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    max-height: none !important;
+  }
+
+  /* Tables: visible cell borders + light header bg on print. */
+  thead {
+    display: table-header-group !important;
+  }
+  tr {
+    page-break-inside: avoid !important;
+  }
+  .math-renderer-table-wrapper {
+    overflow: visible !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  /* KaTeX display-math equations render inside a ScrollFadeRegion
+     (overflow-x-auto) with no print reset of their own, so on print a long
+     equation was silently clipped at the container edge.
+
+     Round-2 P2-1: the first attempt set `white-space: normal !important` on
+     `.katex-display` ALONE. That could never work -- the nowrap declarations
+     live on DESCENDANT elements, not on `.katex-display` itself
+     (`.katex-display > .katex { white-space: nowrap }` at katex.css:1215-1219
+     and `.katex .base { white-space: nowrap; width: min-content }` at
+     katex.css:176-183), and a value set directly on a child always beats a
+     value inherited from its parent. It was an element-targeting miss, not a
+     specificity miss -- `!important` already outranks katex's plain
+     declarations at any specificity, so naming the right elements is enough.
+
+     Two things are therefore required and both are done below:
+     1. neutralise the nowrap + min-content width on the descendants that
+        actually carry them, so a long equation can break; and
+     2. neutralise `.katex-display { text-align: center }` (and the same
+        declaration on `.katex-display > .katex`). Left-anchoring matters:
+        with centring left in place, anything still too wide to break
+        overflows BOTH ends and the printed page loses the START of the
+        derivation as well as the end. Overflow now runs one direction only. */
+  .katex-display,
+  .katex-display > .katex,
+  .katex-display > .katex > .katex-html {
+    overflow: visible !important;
+    max-width: none !important;
+    white-space: normal !important;
+    text-align: left !important;
+  }
+  .katex-display .base {
+    white-space: normal !important;
+    width: auto !important;
+  }
+  table {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+  }
+  html.dark th, th {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+  html.dark td, td {
+    border: 1px solid #cbd5e1 !important;
+  }
+  th, td {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Links: dark blue underlined for print. */
+  html.dark a, a {
+    color: #1d4ed8 !important; /* blue-700 */
+    text-decoration: underline !important;
+  }
+
+  /* KaTeX math text should also revert to dark on light.
+     NOTE: no `.math-display` selector here (P3, docs/BATCH_FIXES_ROUND1.md) -- rehype-katex
+     7.0.1 splices out remark-math's `math-display` element and emits `.katex-display`
+     instead (reset above), so `.math-display` could never match. */
+  .katex, .math-inline {
+    color: #1f2937 !important;
+  }
+}
+
+/*
+ * Matrix Options Paper: reading frame width (owner-approved preview correction).
+ * Body text fills the reading frame: paragraphs, lists and headings share the
+ * frame's left and right edges with tables and other wide blocks, with no inner
+ * per-block measure and no per-block centring. The reader's Comfortable/Wide
+ * preference sets the FRAME maximum (about 80rem / 96rem); below that maximum
+ * the frame is fluid, so it follows the width the side panels leave. Print
+ * always uses the full page width.
+ */
+@layer components {
+  .paper-reading-frame {
+    width: 100%;
+    max-width: 80rem;
+  }
+  .paper-reading-frame[data-reader-width='wide'] {
+    max-width: 96rem;
+  }
+  /* Outside the reading frame, prose keeps the previous fixed measure. */
+  .reader-prose .math-renderer > :where(p, ul, ol, blockquote) {
+    max-width: 84ch;
+  }
+  .paper-reading-frame .reader-prose .math-renderer > :where(p, ul, ol, dl, blockquote) {
+    max-width: none;
+  }
+  @media print {
+    .paper-reading-frame,
+    .paper-reading-frame[data-reader-width] { max-width: none; }
+  }
+}
+
+/*
+ * Matrix Options Paper: figures, tables and quotations (PDF parity, 2026-09-24).
+ * Scoped to the paper prose wrapper (.reader-prose, PaperText). This block sits in
+ * the utilities layer so the table and blockquote rules (specificity 0-2-1)
+ * out-rank MathRenderer's own utility classes (0-1-1) without editing the shared
+ * renderer. Colours come from the --db tokens only; the few paper roles are
+ * named once below and re-pointed for dark and for print.
+ */
+@layer utilities {
+  .reader-prose {
+    --paper-table-head-bg: var(--db-accent-strong);
+    --paper-table-head-fg: var(--db-text-on-accent);
+    /* a faint wash of the text colour: visible on either theme's article surface */
+    --paper-table-band: color-mix(in srgb, var(--db-text-primary) 5%, transparent);
+    --paper-figure-line: var(--db-text-secondary);
+  }
+  .dark .reader-prose {
+    /* accent-strong under white text is 4.1:1 in dark; the raised depth keeps 9.9:1 */
+    --paper-table-head-bg: var(--db-depth-3);
+    --paper-table-head-fg: var(--db-text-primary);
+  }
+
+  /* ---- Figures ------------------------------------------------------------ */
+  .paper-figure {
+    container: paper-figure / inline-size;
+    margin: 2rem 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .paper-figure__canvas {
+    border: 1px solid var(--db-border);
+    border-radius: 12px;
+    background: var(--db-depth-0);
+    padding: 1.25rem;
+    color: var(--db-text-primary);
+    font-family: var(--db-font-ui);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  @container paper-figure (max-width: 30rem) {
+    .paper-figure__canvas { padding: 0.875rem; }
+  }
+  .paper-figure__title {
+    margin: 0 0 1.125rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--db-border);
+    text-align: center;
+    text-wrap: balance;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--db-text-secondary);
+  }
+  /* zero specificity, so the figure's own list classes below set their spacing */
+  :where(.paper-figure) :where(ul, ol) { list-style: none; margin: 0; padding: 0; }
+  .paper-figure sub { font-size: 0.75em; line-height: 0; vertical-align: -0.25em; }
+  .paper-figure__node {
+    position: relative;
+    min-width: 0;
+    background: var(--db-surface);
+    border: 1px solid var(--db-border-strong);
+    border-radius: 6px;
+    padding: 0.625rem 0.75rem;
+    text-align: left;
+    overflow-wrap: break-word;
+  }
+  /* A figure that is not final says so in words, inside the figure, before its content. */
+  .paper-figure__status {
+    margin: 0 0 1rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--db-review-tint-border);
+    border-radius: 6px;
+    background: var(--db-review-tint);
+    color: var(--db-text-primary);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+  /* Candidate status text embeds a full 64-char hex sha256; only this status wraps it (tokens-only change). */
+  .paper-figure__status[data-status='candidate-nonfinal'] { overflow-wrap: anywhere; }
+  .paper-figure__status[data-status='proposed'] {
+    border-color: var(--db-accent-tint-border);
+    background: var(--db-accent-tint);
+  }
+  .paper-figure sup { font-size: 0.75em; line-height: 0; vertical-align: 0.4em; }
+  .paper-figure__node-label { margin: 0; font-weight: 600; color: var(--db-text-primary); }
+  .paper-figure__node-head { margin: 0.125rem 0 0; color: var(--db-text-secondary); }
+  .paper-figure__bullets { display: grid; gap: 0.1875rem; margin-top: 0.375rem !important; }
+  .paper-figure__bullets > li { position: relative; padding-left: 0.875rem; font-size: 0.8125rem; }
+  .paper-figure__bullets > li::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 0.62em;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background: var(--db-text-muted);
+  }
+  .paper-figure__edge-label {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--db-text-secondary);
+    /* TREE_FIT_FIX Revision 3 (2026-09-24) correction: an absolutely positioned label with only
+       `left` set still shrink-to-fits within the remaining width of its containing block and
+       wraps normal text there; `right` (chain/tree branch rules below) narrows that box further,
+       it does not create wrapping that would not otherwise happen. What actually stops a single
+       UNBREAKABLE word (e.g. "THERMODYNAMIC") from running past its box on one line is this
+       overflow-wrap: anywhere -- ordinary text already wraps at spaces without it. */
+    overflow-wrap: anywhere;
+  }
+  .paper-figure__caption {
+    margin-top: 0.625rem;
+    font-family: var(--db-font-ui);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--db-text-secondary);
+    text-align: left;
+  }
+  .paper-figure__number { font-weight: 600; color: var(--db-text-primary); }
+  .paper-figure__note { margin: 0.75rem 0 0; font-size: 0.8125rem; color: var(--db-text-secondary); }
+
+  /*
+   * Accepted figures (AcceptedPaperFigure): the exact accepted PNG of a release.
+   * The artwork is not themed -- it sits on a white plate in light, dark and
+   * print, the ground it was drawn on.
+   *
+   * Its lettering is drawn into the image, so the image is sized by its own
+   * shape (--paper-figure-ratio = width / height, set per figure from the bound
+   * pixel size) rather than by one width for all:
+   * - never taller than 32rem and never wider than 48rem, so a square or
+   *   portrait figure (whose lettering is drawn large) does not fill the screen
+   *   and a wide one does not balloon on a wide screen;
+   * - never shorter than 16rem (the floor: 16rem x ratio wide), so the lettering
+   *   of a wide figure stays legible. In a column clearly narrower than that
+   *   floor the plate scrolls sideways inside the figure (the page never does);
+   * - a column within 15% of the floor just fits the image instead: a figure is
+   *   never clipped by a few pixels behind a scroll hint.
+   * The room is measured on the figure itself (.paper-figure is the query
+   * container), less the plate's padding and border.
+   */
+  .paper-figure__plate {
+    border: 1px solid var(--db-border-strong);
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 0.75rem;
+  }
+  .paper-figure__image {
+    --paper-figure-floor: calc(16rem * var(--paper-figure-ratio, 2.5));
+    --paper-figure-room: calc(100cqi - 1.625rem);
+    display: block;
+    width: 100%;
+    /* A step, not a slope: the floor when the room is under 85% of it, otherwise none. */
+    min-width: clamp(0px, calc((var(--paper-figure-floor) * 0.85 - var(--paper-figure-room)) * 9999), var(--paper-figure-floor));
+    max-width: min(48rem, calc(32rem * var(--paper-figure-ratio, 2.5)));
+    height: auto;
+    margin-inline: auto;
+  }
+  .paper-figure__load-failed {
+    padding: 1.25rem 1rem;
+    font-family: var(--db-font-ui);
+    font-size: 0.875rem;
+    color: #1e293b;
+    text-align: center;
+  }
+  .paper-figure__load-failed > p { margin: 0; }
+  .paper-figure__load-failed > button {
+    margin-top: 0.5rem;
+    min-height: 44px;
+    padding: 0 0.875rem;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 500;
+  }
+  .paper-figure__load-failed > button:hover { background: #f1f5f9; }
+  .paper-figure__load-failed > button:focus-visible { outline: 2px solid var(--db-focus-ring); outline-offset: 2px; }
+  .paper-figure__status-line {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--db-text-muted);
+    overflow-wrap: anywhere;
+  }
+  .paper-figure__actions { margin: 0.375rem 0 0; font-family: var(--db-font-ui); font-size: 0.8125rem; }
+  .paper-figure__actions > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--db-accent-strong);
+    text-underline-offset: 4px;
+  }
+  .dark .paper-figure__actions > a { color: var(--db-accent); }
+  .paper-figure__actions > a:hover { text-decoration: underline; }
+  .paper-figure__actions > a:focus-visible { outline: 2px solid var(--db-focus-ring); outline-offset: 2px; border-radius: 4px; }
+  /*
+   * The full-size viewer of a private-storage figure (AcceptedFigureViewer): a
+   * button under the figure and a modal dialog in the page. Like the figure
+   * plate, the dialog is not themed: the artwork sits on the white ground it
+   * was drawn on. The dialog fills the window less a small margin at every
+   * width; the image is fitted to it, or shown at its own pixel size and
+   * scrolled inside the stage (the page behind never scrolls sideways).
+   */
+  .paper-figure__viewer { margin: 0.375rem 0 0; font-family: var(--db-font-ui); font-size: 0.8125rem; }
+  .paper-figure__viewer > button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--db-accent-strong);
+    font: inherit;
+    text-underline-offset: 4px;
+    cursor: pointer;
+  }
+  .dark .paper-figure__viewer > button { color: var(--db-accent); }
+  .paper-figure__viewer > button:hover { text-decoration: underline; }
+  .paper-figure__viewer > button:focus-visible { outline: 2px solid var(--db-focus-ring); outline-offset: 2px; border-radius: 4px; }
+  .paper-figure__viewer > button:disabled { color: var(--db-text-muted); text-decoration: none; cursor: default; }
+  .paper-figure-viewer {
+    width: min(calc(100vw - 1rem), 96rem);
+    height: min(calc(100dvh - 1rem), 64rem);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #475569;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #0f172a;
+    overflow: hidden;
+  }
+  .paper-figure-viewer[open] { display: flex; flex-direction: column; }
+  .paper-figure-viewer::backdrop { background: rgb(15 23 42 / 0.72); }
+  .paper-figure-viewer__bar {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #cbd5e1;
+    font-family: var(--db-font-ui);
+  }
+  .paper-figure-viewer__title { margin: 0 auto 0 0; font-size: 0.9375rem; font-weight: 600; color: #0f172a; }
+  .paper-figure-viewer__bar > button {
+    min-height: 44px;
+    padding: 0 0.875rem;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .paper-figure-viewer__bar > button[aria-pressed='true'] { background: #e2e8f0; }
+  .paper-figure-viewer__bar > button:hover { background: #f1f5f9; }
+  .paper-figure-viewer__bar > button:focus-visible { outline: 2px solid var(--db-focus-ring); outline-offset: 2px; }
+  .paper-figure-viewer__stage { display: flex; flex: 1 1 auto; min-height: 0; overflow: auto; padding: 0.75rem; }
+  .paper-figure-viewer__stage:focus-visible { outline: 2px solid var(--db-focus-ring); outline-offset: -2px; }
+  .paper-figure-viewer__image { display: block; flex: none; max-width: none; height: auto; margin: auto; }
+  .paper-figure-viewer__image--fit { width: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+  .paper-figure-viewer__note { max-width: 32rem; margin: auto; padding: 1rem; font-family: var(--db-font-ui); font-size: 0.875rem; color: #1e293b; text-align: center; }
+  @media print {
+    /* On paper the whole image fits the page width, and a tall one fits the page height
+       with its caption (7in); nothing scrolls and nothing is clipped. */
+    .paper-figure__plate { border-color: #cbd5e1; padding: 0.5rem; }
+    .paper-figure__image { min-width: 0; max-width: min(100%, calc(7in * var(--paper-figure-ratio, 2.5))); }
+  }
+
+  /*
+   * Chains (flow, stack): one column of steps joined by downward arrows.
+   *
+   * TREE_FIT_FIX Revision 5 (2026-09-24), P2-3: a labelled step used to reserve a
+   * fixed 2.25rem (one line) for its absolutely positioned edge label, the same
+   * defect class as the tree branch's Round 9 occlusion (P2-1) -- Figures 7-4 and
+   * F-1's "(If unavailable or outdated)" wraps to two lines and ran under the next
+   * step's node. Fixed the same way: the label is a normal, static, in-flow
+   * paragraph that carries the connecting stem itself (border-left), so however
+   * many lines it wraps to, the node after it is always pushed down clear of it,
+   * and the line stays continuous down to the node's own top edge, where the
+   * unconditional, unchanged arrowhead begins. Unlike a branch, a step has no
+   * left/right padding, so its content-box centre and its own left:50% (used by
+   * the connecting ::before above) are already the same point -- no symmetric-
+   * padding trick needed here.
+   */
+  .paper-figure__chain { display: grid; max-width: 44rem; margin-inline: auto !important; }
+  .paper-figure__step { position: relative; }
+  .paper-figure__step + .paper-figure__step { padding-top: 1.75rem; }
+  .paper-figure__step + .paper-figure__step::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 1.75rem;
+    border-left: 1px solid var(--paper-figure-line);
+  }
+  .paper-figure__step > .paper-figure__edge-label {
+    position: static;
+    margin: 0 0.5rem 0 50%;
+    padding: 0 0 0.375rem 0.5rem;
+    border-left: 1px solid var(--paper-figure-line);
+  }
+  /* Arrowhead: a small downward triangle whose tip meets the box it points to. */
+  .paper-figure__step + .paper-figure__step > .paper-figure__node::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: calc(50% - 5px);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--paper-figure-line);
+  }
+
+  /*
+   * Trees (tree, grid). Default: an indented outline -- each branch hangs off a
+   * spine with a tick, so the figure reads correctly at any width. From 36rem
+   * of figure width ('normal') or 38.5rem ('normal-deep') it draws instead
+   * (container queries below): each parent centred over a bracket, with an
+   * arrow down to every child, as in the reference PDF.
+   *
+   * TREE_FIT_FIX Revision 2 (2026-09-24): that threshold is only safe for a
+   * tree whose narrowest leaf keeps a large enough share of the container -- each
+   * level splits ITS OWN share evenly among its children (that is what the flex
+   * layout below actually does), so a leaf nested inside two branching levels
+   * (e.g. Figure A-3's sed -> {avs, sem, disp}, then disp -> {case1, case2}) can
+   * end up far narrower than its total sibling count alone would suggest, however
+   * shallow the tree looks. PaperFigure computes this (figures.ts treeFit) and
+   * emits the result as data-fit on .paper-figure__tree. See
+   * TREE_FIT_FIX_RECEIPT.md for the per-figure numbers and why a leaves/depth pair
+   * (Revision 1) could not generalise to a differently-shaped future tree.
+   *
+   * Revision 4 (2026-09-24), P2-2: the plain per-leaf model (9rem/share) put the
+   * 'normal' entry point at 36rem, which is E-1's own exact boundary with zero
+   * margin for anything else -- live measurement (a 690-1440px viewport sweep the
+   * original QA widths skip entirely) found Figure 7-6 drawing as narrow as 106px
+   * and a Figure A-4 node clipping by up to 5px inside the 36.0-37.4rem band,
+   * both below the 110px QA floor, on the default-on inline paper at ordinary
+   * desktop/tablet widths. Raised uniformly to 38.5rem for every tree Revision 4's
+   * plain model called 'normal'.
+   *
+   * Revision 5b (2026-09-24), owner-approved content-driven thresholds: the
+   * uniform 38.5rem raise gave every shallow tree (Figures 6-1/A-1/A-2/E-1/7-5)
+   * more margin than they need, at the cost of a wider laptop-viewport outline
+   * band for them too. figures.ts treeFit now computes a depth-aware
+   * requiredRem (the plain 9rem/share value plus 1.25rem per extra level of the
+   * deepest branching node) and reports THREE buckets instead of two: 'normal'
+   * (36rem -- a shallow tree, branchDepth 1), 'normal-deep' (38.5rem -- Figure
+   * A-4 at ~37.25rem, Figure 7-6 at exactly 38.5rem), and 'wide' (54rem,
+   * unchanged -- Figure A-3). The 'normal' and 'normal-deep' blocks below are
+   * otherwise byte-identical (same technique as the existing 'wide' block: CSS
+   * container queries cannot parameterise a length by an attribute value, so
+   * the ruleset is duplicated a second time rather than shared).
+   */
+  .paper-figure__branch { position: relative; }
+  .paper-figure__children { position: relative; display: grid; gap: 0.75rem; margin-top: 0.75rem !important; padding-left: 1.5rem !important; }
+  .paper-figure__children > .paper-figure__branch::before {
+    content: '';
+    position: absolute;
+    left: -0.875rem;
+    top: -0.75rem;
+    bottom: 0;
+    border-left: 1px solid var(--paper-figure-line);
+  }
+  .paper-figure__children > .paper-figure__branch:last-child::before { bottom: auto; height: 1.8125rem; }
+  .paper-figure__children > .paper-figure__branch::after {
+    content: '';
+    position: absolute;
+    left: -0.875rem;
+    top: 1.0625rem;
+    width: 0.875rem;
+    border-top: 1px solid var(--paper-figure-line);
+  }
+  /* Several boxes with no connection between them: a board (grid) or a layer stack (stack). */
+  .paper-figure__tree[data-roots='many'] { display: grid; gap: 0.75rem; }
+  .paper-figure[data-layout='grid'] .paper-figure__tree[data-roots='many'] { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); align-items: start; }
+  /* a layer stack keeps a readable measure on wide screens, like a chain */
+  .paper-figure[data-layout='stack'] .paper-figure__tree[data-roots='many'] { max-width: 44rem; margin-inline: auto !important; }
+  .paper-figure__children > .paper-figure__branch[data-labelled]::after { top: 0.5625rem; }
+  .paper-figure__children > .paper-figure__branch[data-labelled]:last-child::before { height: 1.3125rem; }
+
+  @container paper-figure (min-width: 36rem) {
+    .paper-figure__tree[data-fit='normal'] .paper-figure__branch:has(> .paper-figure__children) > .paper-figure__node { max-width: 30rem; margin-inline: auto; }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children { display: flex; gap: 0; margin-top: 0 !important; padding-left: 0 !important; padding-top: 1rem; }
+    /* stem from the parent down to the bracket */
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 1rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch { flex: 1 1 0; min-width: 0; padding: 1rem 0.375rem 0; }
+    /* bracket segment: first and last children stop at their own centre */
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch::before {
+      left: 0 !important;
+      right: 0;
+      top: 0 !important;
+      bottom: auto !important;
+      height: 0 !important;
+      border-left: 0;
+      border-top: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch:first-child::before { left: 50% !important; }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch:last-child::before { right: 50%; }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch:only-child::before { display: none; }
+    /* drop from the bracket to the child, ending in an arrowhead */
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch::after {
+      left: 50% !important;
+      top: 0 !important;
+      width: 0;
+      height: 1rem;
+      border-top: 0;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch > .paper-figure__node::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: calc(50% - 5px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--paper-figure-line);
+    }
+    /* P2-1 fix (2026-09-24 Revision 3, restyled Revision 4 per leg1a_r10 P2-1 / leg1b_situation_r6
+       P2-1): the label is a normal, static, in-flow paragraph -- CSS guarantees a static block's
+       margin box never overlaps its next sibling's, so however many lines it wraps to, the node
+       below is always pushed down clear of it (Revision 3's fix for occlusion, kept). Revision 3
+       left the connecting stem as a fixed 1rem .branch::after ending at the label's own top, which
+       disconnected the visible line from the arrowhead by however tall the label rendered (a
+       regression on every labelled branch, e.g. Figures A-2 and A-4, caught live in Round 10).
+       Revision 4: the label itself now carries the stem onward -- margin-left 50% (of the branch's
+       CONTENT box) lands its border-box left edge at the same x the branch's own centred drop line
+       uses (the branch's 0.375rem left/right padding is symmetric, so the content-box centre and
+       the padding-box centre the absolute-positioned drop line measures against are the same point),
+       padding-left 0.4375rem keeps the text where it always sat, and border-left continues the
+       1px line down through however many lines the label takes. margin-bottom: 0 (no gap before the
+       node) plus padding-bottom 0.375rem means the border reaches all the way to the node's own top
+       edge, exactly where the arrowhead (.node::before, unconditional, unchanged) begins -- the same
+       zero-gap, 6px-overlap relationship an unlabelled branch's plain .branch::after already had
+       with its own arrowhead. */
+    .paper-figure__tree[data-fit='normal'] .paper-figure__children > .paper-figure__branch > .paper-figure__edge-label {
+      position: static;
+      margin: 0 0.375rem 0 50%;
+      padding: 0 0 0.375rem 0.4375rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+  }
+
+  /*
+   * A tree whose deepest branching node pushes its requiredRem past 36rem but not
+   * past 38.5rem (figures.ts treeFit: data-fit='normal-deep' -- Figure A-4 at
+   * ~37.25rem, Figure 7-6 at exactly 38.5rem, Revision 5b) keeps the indented
+   * outline above until 38.5rem, then draws with the exact same rules as the
+   * 'normal' block above -- CSS container queries cannot parameterise a length by
+   * an attribute value, so the ruleset below is a duplicate, gated at the wider
+   * threshold and a different data-fit value, not a genuinely different layout.
+   * (Checked before duplicating, same reasoning as the 'wide' block below: a
+   * comma-separated list of container conditions cannot express two DIFFERENT
+   * thresholds for two different selectors in one block, and CSS Container Style
+   * Queries are not yet supported in Safari, which this reader must support.)
+   */
+  @container paper-figure (min-width: 38.5rem) {
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__branch:has(> .paper-figure__children) > .paper-figure__node { max-width: 30rem; margin-inline: auto; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children { display: flex; gap: 0; margin-top: 0 !important; padding-left: 0 !important; padding-top: 1rem; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 1rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch { flex: 1 1 0; min-width: 0; padding: 1rem 0.375rem 0; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch::before {
+      left: 0 !important;
+      right: 0;
+      top: 0 !important;
+      bottom: auto !important;
+      height: 0 !important;
+      border-left: 0;
+      border-top: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch:first-child::before { left: 50% !important; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch:last-child::before { right: 50%; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch:only-child::before { display: none; }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch::after {
+      left: 50% !important;
+      top: 0 !important;
+      width: 0;
+      height: 1rem;
+      border-top: 0;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch > .paper-figure__node::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: calc(50% - 5px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='normal-deep'] .paper-figure__children > .paper-figure__branch > .paper-figure__edge-label {
+      position: static;
+      margin: 0 0.375rem 0 50%;
+      padding: 0 0 0.375rem 0.4375rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+  }
+
+  /*
+   * A tree whose narrowest leaf needs more than a 54rem container (figures.ts
+   * treeFit: data-fit='wide') keeps the indented outline above until 54rem, then
+   * draws with the exact same rules -- CSS container queries cannot parameterise
+   * a length by an attribute value, so the ruleset below is a duplicate of the one
+   * above, gated at the wider threshold and a different data-fit value, not a
+   * genuinely different layout. (Checked before duplicating: a comma-separated
+   * list of container conditions cannot express two DIFFERENT thresholds for two
+   * different selectors in one block -- the widest condition alone would apply to
+   * both; CSS Container Style Queries, e.g. `@container style(--fit: wide)`, would
+   * avoid the duplication but are not yet supported in Safari, which this reader
+   * must support -- so a size-only query with one duplicate block is the
+   * cross-browser-safe choice here.)
+   */
+  @container paper-figure (min-width: 54rem) {
+    .paper-figure__tree[data-fit='wide'] .paper-figure__branch:has(> .paper-figure__children) > .paper-figure__node { max-width: 30rem; margin-inline: auto; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children { display: flex; gap: 0; margin-top: 0 !important; padding-left: 0 !important; padding-top: 1rem; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 1rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch { flex: 1 1 0; min-width: 0; padding: 1rem 0.375rem 0; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch::before {
+      left: 0 !important;
+      right: 0;
+      top: 0 !important;
+      bottom: auto !important;
+      height: 0 !important;
+      border-left: 0;
+      border-top: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch:first-child::before { left: 50% !important; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch:last-child::before { right: 50%; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch:only-child::before { display: none; }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch::after {
+      left: 50% !important;
+      top: 0 !important;
+      width: 0;
+      height: 1rem;
+      border-top: 0;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch > .paper-figure__node::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: calc(50% - 5px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--paper-figure-line);
+    }
+    /* P2-1 fix (2026-09-24 Revision 3, restyled Revision 4 -- see the 'normal' block above for the
+       full explanation, identical here): the label is a normal, static, in-flow paragraph whose
+       own border-left continues the stem from the bracket, through however many lines it wraps to,
+       down to the node's own top edge, where the unconditional, unchanged arrowhead
+       (.node::before) begins. */
+    .paper-figure__tree[data-fit='wide'] .paper-figure__children > .paper-figure__branch > .paper-figure__edge-label {
+      position: static;
+      margin: 0 0.375rem 0 50%;
+      padding: 0 0 0.375rem 0.4375rem;
+      border-left: 1px solid var(--paper-figure-line);
+    }
+  }
+
+  /* ---- Tables --------------------------------------------------------------
+   * The reference PDF's hierarchy: a strong header row, compact cells, banded
+   * body rows, a row-label column that is not starved by auto layout, and
+   * tabular numerals. The scroll-fade wrapper still handles wide tables. */
+  .reader-prose .math-renderer table {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  .reader-prose .math-renderer th {
+    background: var(--paper-table-head-bg);
+    color: var(--paper-table-head-fg);
+    border-color: var(--paper-table-head-bg);
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    vertical-align: bottom;
+    text-align: left;
+  }
+  .reader-prose .math-renderer th :is(strong, em, a, code) {
+    color: inherit;
+    background: transparent;
+  }
+  .reader-prose .math-renderer td {
+    padding: 0.5rem 0.75rem;
+    border-color: var(--db-border-strong);
+    vertical-align: top;
+  }
+  .reader-prose .math-renderer tbody > tr:nth-child(even) { background: var(--paper-table-band); }
+  .reader-prose .math-renderer .paper-table-caption-row td {
+    background: transparent;
+    color: var(--db-text-primary);
+    border: 0;
+    padding: 0 0 0.5rem;
+    font-weight: 500;
+  }
+  .reader-prose .math-renderer :is(th, td):first-child { min-width: 9rem; }
+
+  /* ---- Quoted material -----------------------------------------------------
+   * Two kinds in the paper. Quotations (a quoted source passage, attribution in
+   * its trailing parenthetical or the following "Source:" line) are set in roman
+   * with a hairline rule and an indent. Editorial notes open with a bold lead
+   * ("Successor identity.") and read as a tinted note panel. The kind is read from
+   * the source text by the reader (data-quote-kind), not guessed from markup. */
+  /* Leg 1b P1 fix: the box now spans the reading frame edge-to-edge (margin 0 left/right, same as
+   * every other body block), with the visual indent moved into padding-left so the text still
+   * lands at the same 1.5rem inset it did before (0.25rem margin + 1.25rem padding); only the
+   * hairline border's position shifts from 0.25rem to the frame edge. e2e's "fills the reading
+   * frame" check (matrix-options-paper.spec.ts, M2) asserts every visible body block's width
+   * matches its .reader-prose card; a quotation-kind blockquote (unlike note-kind, which already
+   * used margin: 1.5rem 0) was 4px narrower than that because of the old margin-left. */
+  .reader-prose .math-renderer > blockquote {
+    margin: 1.5rem 0;
+    padding: 0.125rem 0 0.125rem 1.5rem;
+    border-left: 1px solid var(--db-border-strong);
+    font-style: normal;
+    color: var(--db-text-primary);
+  }
+  .reader-prose .math-renderer > blockquote > :first-child { margin-top: 0; }
+  .reader-prose .math-renderer > blockquote > :last-child { margin-bottom: 0; }
+  .reader-prose .math-renderer > blockquote > p + p { margin-top: 0.75rem; }
+  .reader-prose [data-quote-kind='note'] > .math-renderer > blockquote {
+    margin: 1.5rem 0;
+    padding: 0.875rem 1.125rem;
+    border: 1px solid var(--db-accent-tint-border);
+    border-radius: 8px;
+    background: var(--db-accent-tint);
+  }
+  .reader-prose .math-renderer > blockquote code {
+    color: inherit;
+    background: var(--db-surface);
+  }
+}
+
+/* Print: the page is always light, so the paper's token roles print light too
+ * (the global print block forces element colours but not custom properties),
+ * the table header prints like the reference PDF and repeats on each page, and
+ * a figure is never split. Literal values mirror the light :root tokens. */
+@page matrix-paper { margin: 0.5in; }
+@media print {
+  [data-testid='paper-document-column'] { page: matrix-paper; }
+  html.dark .reader-prose,
+  .reader-prose {
+    --db-surface: #ffffff;
+    --db-surface-raised: #ffffff;
+    --db-depth-0: #f8fafc;
+    --db-depth-1: #f1f5f9;
+    --db-depth-3: #cbd5e1;
+    --db-border: #e2e8f0;
+    --db-border-strong: #cbd5e1;
+    --db-text-primary: #0f172a;
+    --db-text-secondary: #475569;
+    --db-text-muted: #64748b;
+    --db-text-on-accent: #ffffff;
+    --db-accent-strong: #0369a1;
+    --db-accent-tint: #f0f9ff;
+    --db-accent-tint-border: #bae6fd;
+    --db-review-tint: #fffbeb;
+    --db-review-tint-border: #fde68a;
+    --paper-table-head-bg: #0369a1;
+    --paper-table-head-fg: #ffffff;
+    --paper-table-band: #f8fafc;
+    --paper-figure-line: #475569;
+  }
+  .reader-prose .math-renderer th {
+    background: var(--paper-table-head-bg) !important;
+    color: var(--paper-table-head-fg) !important;
+    border: 1px solid var(--paper-table-head-bg) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .reader-prose .math-renderer th :is(strong, em, a, code) { color: inherit !important; background: transparent !important; }
+  .reader-prose .math-renderer tbody > tr:nth-child(even) {
+    background: var(--paper-table-band) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .reader-prose .math-renderer :is(th, td) { font-size: 9pt; padding: 4px 6px; line-height: 1.25; }
+  .reader-prose .math-renderer .paper-captioned-table { break-inside: avoid; page-break-inside: avoid; }
+  .reader-prose .math-renderer .paper-captioned-table table { break-inside: avoid; page-break-inside: avoid; }
+  .reader-prose .math-renderer .paper-table-caption-row td {
+    background: transparent !important;
+    color: var(--db-text-primary) !important;
+    border: 0 !important;
+    padding: 0 0 0.5rem;
+  }
+  .paper-figure__canvas,
+  .paper-figure__status,
+  .reader-prose [data-quote-kind='note'] > .math-renderer > blockquote {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .paper-figure { break-inside: avoid; page-break-inside: avoid; }
+  .paper-figure__caption { break-before: avoid; page-break-before: avoid; }
+}

@@ -1,0 +1,32 @@
+/*
+ * Viewer stylesheet.
+ *
+ * bnrrm-base.css is the original BN-RRM application stylesheet, copied unchanged at the
+ * extraction commit (see PROVENANCE.md) so the original components render as they did.
+ * Tailwind scans this repository for class names (files in .gitignore are skipped). Docs,
+ * tests and scripts are excluded so editing them cannot change the stylesheet.
+ */
+@import "./bnrrm-base.css";
+@source not "../README.md";
+@source not "../PROVENANCE.md";
+@source not "../e2e";
+@source not "../scripts";
+@source not "../lib/*.test.ts";
+@source not "../lib/*.test.tsx";
+@source not "../playwright.config.ts";
+@source not "../vitest.config.ts";
+
+/* Integrity-gate states shown before the viewer mounts. */
+.loading-card,
+.error-card {
+  margin: 24px auto;
+  max-width: 720px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 16px 20px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.loading-card { color: #64748b; }
+.error-card { border-color: #d4aaa4; color: #8a342e; }
+.error-card h2 { margin-top: 0; }

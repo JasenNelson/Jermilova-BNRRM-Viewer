@@ -1,0 +1,55 @@
+{
+  "name": "jermilova-bnrrm-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Read-only static viewer for the Jermilova et al. 2025 Mackenzie mercury Bayesian network (BN-RRM).",
+  "license": "MIT",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "check:assets": "node scripts/check-assets.mjs",
+    "check:pack": "vitest run lib/loadJermilovaPack.test.ts",
+    "build": "node scripts/check-assets.mjs && vitest run lib/loadJermilovaPack.test.ts && next build && node scripts/csp.mjs --write && node scripts/audit-export.mjs",
+    "build:monitored": "node scripts/build-monitored.mjs",
+    "audit": "node scripts/csp.mjs --check && node scripts/audit-export.mjs",
+    "preview": "node scripts/preview-server.js out 4173",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test --project=viewer-desktop --project=viewer-phone",
+    "test:parity": "playwright test --project=compare"
+  },
+  "dependencies": {
+    "@xyflow/react": "12.10.1",
+    "clsx": "2.1.1",
+    "leaflet": "1.9.4",
+    "leaflet.markercluster": "1.5.3",
+    "lucide-react": "0.539.0",
+    "next": "15.5.9",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwind-merge": "3.5.0",
+    "zustand": "5.0.11"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.1",
+    "@playwright/test": "1.56.1",
+    "@tailwindcss/postcss": "4.1.11",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@types/geojson": "7946.0.16",
+    "@types/leaflet": "1.9.21",
+    "@types/leaflet.markercluster": "1.5.6",
+    "@types/node": "20.19.24",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
+    "eslint": "9.33.0",
+    "eslint-config-next": "15.5.9",
+    "jsdom": "27.1.0",
+    "tailwindcss": "4.1.11",
+    "typescript": "5.9.2",
+    "vitest": "4.0.6"
+  }
+}

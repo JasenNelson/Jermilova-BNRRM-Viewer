@@ -1,0 +1,14 @@
+# Dependencies, build output and tool caches
+node_modules/
+.next/
+out/
+coverage/
+test-results/
+playwright-report/
+.evidence/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+# Never commit credentials (this viewer needs none)
+.env*
+.build-monitor.json
