@@ -29,7 +29,7 @@
       "doc_id": 3,
       "site_id": 1,
       "filename": null,
-      "title": "FRDR Repository Dataset (doi: 10.20383/103.0945)",
+      "title": "FRDR Repository Dataset (doi: 10.20383/103.0957)",
       "author": "Jermilova, U. et al.",
       "date": "2024",
       "type": "data_repository",
@@ -118,5 +118,5 @@
     "co_location_breakdown": { "single_loe": 4 }
   },
   "n_provenance_records": 2,
-  "coverage": "All training data sourced from FRDR repository (doi: 10.20383/103.0945). 604 fish tissue Hg cases and 855 freshwater THg cases across 4 GSL regions."
+  "coverage": "All training data sourced from FRDR repository (doi: 10.20383/103.0957). 604 fish tissue Hg cases and 855 freshwater THg cases across 4 GSL regions."
 }

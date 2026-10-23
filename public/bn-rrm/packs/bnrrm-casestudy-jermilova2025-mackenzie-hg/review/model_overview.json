@@ -14,7 +14,7 @@
     "dag_source": "Figure 2 + Manuscript_RCode.R lme() formulas",
     "cpt_learning": "BDeu (ESS=1.0) for stressor nodes; deterministic mappings for effect/endpoint nodes",
     "discretization_source": "Table S4 (supplementary) + R code breakpoint definitions",
-    "training_data": "FRDR repository (doi: 10.20383/103.0945)"
+    "training_data": "FRDR repository (doi: 10.20383/103.0957)"
   },
   "sub_models": {
     "GSL": {

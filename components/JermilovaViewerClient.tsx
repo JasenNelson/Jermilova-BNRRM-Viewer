@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import JermilovaBnrrmClient from '../forked/JermilovaBnrrmClient';
 import { loadJermilovaPack } from '../lib/loadJermilovaPack';
 import { createVerifiedFetch } from '../lib/verifiedFetch';
+import { DataLicensingNotice } from './DataLicensingNotice';
 import { PackLoadState } from './PackLoadState';
 
 // Integrity, then the original BN-RRM page. The viewer is served from the site root, so
@@ -40,9 +41,13 @@ export default function JermilovaViewerClient() {
     };
   }, []);
 
+  // The data-licensing notice sits below the full-height viewer, outside the copied shell.
   return (
-    <PackLoadState error={error} loading={!verified}>
-      {verified && <JermilovaBnrrmClient />}
-    </PackLoadState>
+    <>
+      <PackLoadState error={error} loading={!verified}>
+        {verified && <JermilovaBnrrmClient />}
+      </PackLoadState>
+      <DataLicensingNotice />
+    </>
   );
 }

@@ -26,13 +26,12 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const exportRoot = path.join(repoRoot, 'out');
 
-// Hosts the map loads tiles and overlay images from (the original BN-RRM basemaps and the
-// BC government WMS). Map tiles are images; the viewer makes no other cross-origin request.
+// Hosts the map loads tiles and overlay images from (the OpenStreetMap and OpenTopoMap
+// basemaps and the BC government WMS; see DATA_LICENSE.md). Map tiles are images; the viewer
+// makes no other cross-origin request.
 export const MAP_IMAGE_HOSTS = [
-  'https://*.tile.openstreetmap.org',
-  'https://server.arcgisonline.com',
+  'https://tile.openstreetmap.org',
   'https://*.tile.opentopomap.org',
-  'https://stamen-tiles.a.ssl.fastly.net',
   'https://openmaps.gov.bc.ca',
 ];
 

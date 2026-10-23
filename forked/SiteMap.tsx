@@ -3,7 +3,7 @@
  *
  * Interactive map with:
  * - Marker clustering for overlapping sites
- * - Multiple base layers (streets, satellite, topo)
+ * - Multiple base layers (streets, topo)
  * - Clickable site list
  * - Map export functionality
  */
@@ -63,32 +63,29 @@ interface SiteMapProps {
   initialZoom?: number;
 }
 
-// Layer definitions
+// Layer definitions. Standalone changes (see DATA_LICENSE.md): OpenStreetMap uses the
+// canonical tile URL and its linked copyright attribution; the Esri imagery and Stamen
+// terrain basemaps are removed (Esri's documented service needs an account and token, and
+// the legacy Stamen URLs no longer serve tiles).
 const BASE_LAYERS = {
   streets: {
     name: 'Streets',
-    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    attribution: '© OpenStreetMap contributors',
-  },
-  satellite: {
-    name: 'Satellite',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    attribution: '© Esri',
+    url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
   topo: {
     name: 'Topographic',
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
   },
-  terrain: {
-    name: 'Terrain',
-    url: 'https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg',
-    attribution: '© Stamen Design',
-  },
 };
 
 const BC_WMS_URL = 'https://openmaps.gov.bc.ca/geo/pub/ows';
-const BC_ATTR = '© Province of British Columbia';
+// The acknowledgment prescribed by the Open Government Licence - British Columbia, with a
+// link to the licence.
+const BC_ATTR = 'Contains information licensed under the <a href="https://www2.gov.bc.ca/gov/content/data/policy-standards/data-policies/open-data/open-government-licence-bc">Open Government Licence &ndash; British Columbia</a>.';
+// The pack's study-area layers are adapted from the FRDR dataset (CC BY-NC-SA 4.0).
+const PACK_LAYER_ATTR = 'Study-area layers: Jermilova &amp; Hintelmann, <a href="https://doi.org/10.20383/103.0957">FRDR</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>), adapted';
 
 interface OverlayDef {
   name: string;
@@ -551,6 +548,7 @@ export function SiteMap({
           }
           const style = getStyleForKey(key);
           const geoLayer = L.geoJSON(data as FeatureCollection, {
+            attribution: PACK_LAYER_ATTR,
             style: () => ({
               color: style.color,
               weight: style.strokeWeight,
@@ -683,7 +681,7 @@ export function SiteMap({
         opacity: 1,
         fillOpacity: 0.9,
         dashArray: isCentroid ? '4 3' : undefined,
-        locationId: location.id, // Custom option — read by cluster click handler
+        locationId: location.id, // Custom option - read by cluster click handler
       };
       const marker = L.circleMarker([location.latitude, location.longitude], markerOpts);
 
@@ -734,7 +732,7 @@ export function SiteMap({
     });
   }, [siteLocations, isLoaded, leaflet, onSiteSelect, selectSite, toggleSiteSelection]);
 
-  // Update marker styles when selection changes — without clearing/recreating layers
+  // Update marker styles when selection changes - without clearing/recreating layers
   useEffect(() => {
     if (!isLoaded || !leaflet) return;
 
@@ -1058,7 +1056,7 @@ export function SiteMap({
               ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700',
           )}
-          title="Pan mode — drag to move map"
+          title="Pan mode &mdash; drag to move map"
         >
           <Hand className="w-4 h-4" />
           <span className="hidden sm:inline">Pan</span>
@@ -1071,7 +1069,7 @@ export function SiteMap({
               ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700',
           )}
-          title="Select mode — click markers, Ctrl+click clusters"
+          title="Select mode &mdash; click markers, Ctrl+click clusters"
         >
           <MousePointer className="w-4 h-4" />
           <span className="hidden sm:inline">Select</span>

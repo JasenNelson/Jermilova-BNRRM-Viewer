@@ -3,12 +3,11 @@ import { expect, type Page } from '@playwright/test';
 
 export const TABS = ['Guide', 'Conceptual', 'Detailed BN', 'CPT', 'Map', 'Data'];
 
-// Hosts the map loads tiles from (original BN-RRM basemaps and the BC government WMS).
+// Hosts the map loads tiles from (OpenStreetMap and OpenTopoMap basemaps and the BC
+// government WMS).
 export const APPROVED_HOSTS = [
-  /(^|\.)tile\.openstreetmap\.org$/,
-  /^server\.arcgisonline\.com$/,
+  /^tile\.openstreetmap\.org$/,
   /(^|\.)tile\.opentopomap\.org$/,
-  /^stamen-tiles\.a\.ssl\.fastly\.net$/,
   /^openmaps\.gov\.bc\.ca$/,
 ];
 

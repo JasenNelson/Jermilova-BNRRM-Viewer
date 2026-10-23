@@ -4,7 +4,9 @@ import ts from 'typescript';
 // Ported from the R16 derived audit core (reviewed GREEN). Changes: bare
 // 'typescript' import, and this marker list for the faithful (original-component)
 // viewer:
-// - Retired 'esri', 'opentopomap', 'stamen': the owner kept the original basemaps.
+// - Retired 'esri', 'opentopomap', 'stamen' as bare words: the owner kept the original
+//   basemaps. The standalone repository later removed the Esri and Stamen basemaps; their
+//   exact hosts are forbidden at the end of the list (OpenTopoMap is still used).
 // - Retired legacy-model ids ('bnrrm-landis-causal', 'sed_cu', 'sulfide_binding',
 //   'tox_amphipod') and 'wms-identify': the original stores/libraries embed them as
 //   source. "Only Jermilova renders" is enforced by behavior instead (fallback deleted
@@ -27,6 +29,13 @@ export const FORBIDDEN_MARKERS = [
   'loadTrainedModel',
   'loadDummyModel',
   'Benthic Risk Conceptual Model',
+  // Standalone licensing corrections (DATA_LICENSE.md): the removed basemap hosts and the
+  // two FRDR identifiers that are not this dataset's (assembled from parts so the
+  // repository-wide check in lib/licensing.test.tsx can forbid the literal strings).
+  'stamen-tiles.a.ssl.fastly.net',
+  'server.arcgisonline.com',
+  ['10', '20383/103', '0945'].join('.'),
+  ['10', '20383/103', '0943'].join('.'),
 ];
 
 export const NEXT_API_ROUTE_SOURCE_PINS = [

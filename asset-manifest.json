@@ -5,14 +5,39 @@
   "provenance": {
     "target_hash_source": "MC R3_SOURCE_IDENTITY_SUPPLEMENT_R2.json sha256 aafab6f2ea0f91f50d756e658a5d4d86797d2eb582c651168dba4a0771c84242",
     "inventory_source": "MC U0_ASSET_INVENTORY.json sha256 ba4e505a4cfd713d5e7d0499ee530a201ed9f593d82f8dbdf3812ea19907ba12",
-    "note": "sha256/bytes are the exact Git blob bytes at base d9c1bb31 (LF). inventory_* record the original primary-checkout physical bytes; eleven of those had CRLF line endings. The copier verifies sha256/bytes only and never rewrites asset bytes."
+    "note": "sha256/bytes are the exact Git blob bytes at base d9c1bb31 (LF). inventory_* record the original primary-checkout physical bytes; eleven of those had CRLF line endings. The copier verifies sha256/bytes only and never rewrites asset bytes.",
+    "identifier_correction": {
+      "note": "The FRDR dataset identifier in these four files was corrected to the source version the article cites (doi:10.20383/103.0957). No other byte changed. sha256/bytes above are the corrected files; inventory_* still record the original physical bytes. Reproduce or verify with scripts/correct-frdr-doi.mjs.",
+      "files": [
+        {
+          "path": "pack.json",
+          "source_sha256": "24b322e8b8389164c58a15d9e8b29e35fe794dbdbdf9ee7b6606947e7a4bf17b",
+          "corrected_sha256": "db1c5f7c57db3af03894e43577c04a582db05d183c2a8a326e63d29f328dc3d9"
+        },
+        {
+          "path": "review/model_overview.json",
+          "source_sha256": "14f0676a726fa92cadf8f864d31637812d79dff0dd029ffc8ded72de3e13e418",
+          "corrected_sha256": "b90f2332fe1efc187cb971614d74d63bb9e3d5b264f7bfb006ca49e38dc1a9ff"
+        },
+        {
+          "path": "review/provenance_registry.json",
+          "source_sha256": "9a3e6f8376adfc7a8b9371198dd917c3951908c9d52e419da7a802a9ca93f959",
+          "corrected_sha256": "17f7dd01cf0a7d30da24506e539ddb7b7464ea51c9f7289018596e24b3a30420"
+        },
+        {
+          "path": "training_data.json",
+          "source_sha256": "e6ad4be9580067ed67da5e55f1c9e2ab40cc5e3ff33037cac05803d7b4684931",
+          "corrected_sha256": "d338518d27adcf0d3449dfcf61213e109cddc218aac8b7b3b8447cec7be6508a"
+        }
+      ]
+    }
   },
   "assets": [
     {
       "role": "core",
       "key": "pack",
       "path": "pack.json",
-      "sha256": "24b322e8b8389164c58a15d9e8b29e35fe794dbdbdf9ee7b6606947e7a4bf17b",
+      "sha256": "db1c5f7c57db3af03894e43577c04a582db05d183c2a8a326e63d29f328dc3d9",
       "bytes": 3436,
       "inventory_sha256": "24b322e8b8389164c58a15d9e8b29e35fe794dbdbdf9ee7b6606947e7a4bf17b",
       "inventory_bytes": 3436
@@ -30,7 +55,7 @@
       "role": "core",
       "key": "model_overview",
       "path": "review/model_overview.json",
-      "sha256": "14f0676a726fa92cadf8f864d31637812d79dff0dd029ffc8ded72de3e13e418",
+      "sha256": "b90f2332fe1efc187cb971614d74d63bb9e3d5b264f7bfb006ca49e38dc1a9ff",
       "bytes": 2846,
       "inventory_sha256": "14f0676a726fa92cadf8f864d31637812d79dff0dd029ffc8ded72de3e13e418",
       "inventory_bytes": 2846
@@ -48,7 +73,7 @@
       "role": "core",
       "key": "provenance",
       "path": "review/provenance_registry.json",
-      "sha256": "9a3e6f8376adfc7a8b9371198dd917c3951908c9d52e419da7a802a9ca93f959",
+      "sha256": "17f7dd01cf0a7d30da24506e539ddb7b7464ea51c9f7289018596e24b3a30420",
       "bytes": 4081,
       "inventory_sha256": "9a3e6f8376adfc7a8b9371198dd917c3951908c9d52e419da7a802a9ca93f959",
       "inventory_bytes": 4081
@@ -57,7 +82,7 @@
       "role": "core",
       "key": "training_data",
       "path": "training_data.json",
-      "sha256": "e6ad4be9580067ed67da5e55f1c9e2ab40cc5e3ff33037cac05803d7b4684931",
+      "sha256": "d338518d27adcf0d3449dfcf61213e109cddc218aac8b7b3b8447cec7be6508a",
       "bytes": 795344,
       "inventory_sha256": "e6ad4be9580067ed67da5e55f1c9e2ab40cc5e3ff33037cac05803d7b4684931",
       "inventory_bytes": 795344

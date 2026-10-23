@@ -129,7 +129,9 @@ Things to know when changing it:
   values in `lib/loadJermilovaPack.test.ts`. `npm run build` runs the viewer's own pack
   loader against the shipped files before building (`npm run check:pack`), so a stale
   record stops the build instead of reaching the deployed page. Any file added to
-  `public/` that is not in the manifest also stops the build.
+  `public/` that is not in the manifest also stops the build. The one change made here to
+  pack bytes (the FRDR dataset identifier) is reproducible and checkable with
+  `node scripts/correct-frdr-doi.mjs --check`.
 - **New outside services** (another map tile server, for example) must be added to the
   policy in `scripts/csp.mjs` and copied into `vercel.json`; the tests check the two match.
 - `npm run test:parity` compares this copy with the original published viewer at
@@ -138,18 +140,34 @@ Things to know when changing it:
 
 ## Licence and attribution
 
-The code is released under the MIT licence (see [LICENSE](LICENSE)). The licence requires
-that the copyright notice ("Copyright (c) 2025 JasenNelson") and the permission notice be
-kept in all copies or substantial portions of the software. Keep the `LICENSE` file when
-you copy, change or redistribute this repository.
+This repository contains material under different licences:
 
-The MIT licence covers the software. The data pack is separate: the model and training
-data come from Jermilova et al. 2025 and the FRDR dataset doi:10.20383/103.0945, and the
-twelve map layers are packaged public geographic datasets whose individual sources and
-licences are not recorded in the pack (see the Data section of PROVENANCE.md). Before
-making the repository or the site public, confirm that the data's terms allow
-redistribution and add any attribution they require. A private GitHub repository also
-works with Vercel.
+- **Software: Apache License 2.0** ([LICENSE](LICENSE)). It covers the code, scripts,
+  configuration and software documentation, and nothing else. Portions copied or adapted
+  from the SSTAC-Dashboard repository keep their original MIT notice ("Copyright (c) 2025
+  JasenNelson"), preserved unchanged in [LICENSES/MIT.txt](LICENSES/MIT.txt);
+  [NOTICE](NOTICE) explains how the two relate. Keep `LICENSE`, `NOTICE` and `LICENSES/`
+  when you copy, change or redistribute this repository.
+- **Research data: CC BY-NC-SA 4.0** ([DATA_LICENSE.md](DATA_LICENSE.md)). The data pack
+  under `public/bn-rrm/` is adapted from the dataset Una Jermilova and Holger Hintelmann
+  deposited in the Federated Research Data Repository: doi:10.20383/103.0957, the version
+  the article cites (the current version is doi:10.20383/103.01279; the data here were not
+  refreshed from it). The Apache License does not apply to these data. DATA_LICENSE.md
+  gives the citation, the changes made, and the recorded sources of all twelve map layers;
+  those upstream sources keep their own terms.
+- **Map services**: basemap tiles (OpenStreetMap, OpenTopoMap) and the optional British
+  Columbia overlays are loaded from their providers at view time under the providers'
+  terms. Their credits appear in the map's attribution control.
+
+The page shows a short "Data and licensing" notice below the viewer, with the citation,
+the licence, what was changed, and the map-layer sources.
+
+The repository as a whole is therefore not under one licence, and it is not entirely open
+source: the bundled data carry a NonCommercial restriction. Any public deployment of the
+site must be genuinely noncommercial in the licence's sense ("not primarily intended for or
+directed towards commercial advantage or monetary compensation"); offering it free of
+charge does not by itself decide that. Making the repository or the site public remains
+the owner's decision. A private GitHub repository also works with Vercel.
 
 ## Vercel plan and Vercel Toolbar
 
@@ -169,8 +187,10 @@ works with Vercel.
 - The model has 15 causal links, and all 15 are used in the calculations, but the network
   drawing shows 14 arrows (MeHg Ingested -> pTWI Exceedance is not drawn).
 - The Guide mentions a Review tab that this read-only viewer does not include. "20 nodes"
-  can show briefly before the data loads. One optional map basemap (Stamen terrain) no
-  longer loads. Light theme only.
+  can show briefly before the data loads. Light theme only.
+- The Map offers two basemaps, Streets (OpenStreetMap) and Topographic (OpenTopoMap). The
+  original viewer's Esri imagery and Stamen terrain basemaps were removed here (see
+  DATA_LICENSE.md).
 
 ## Repository layout
 
@@ -186,3 +206,4 @@ works with Vercel.
 | `e2e/` | Browser tests |
 | `asset-manifest.json`, `claim-register.json`, `viewer-capabilities.ts` | Data-pack checksums, verified display claims, pack and model identifiers |
 | `vercel.json` | Vercel settings and security headers |
+| `LICENSE`, `NOTICE`, `LICENSES/`, `DATA_LICENSE.md` | Software licence (Apache-2.0), preserved MIT notice, data licence (CC BY-NC-SA 4.0) and attribution |

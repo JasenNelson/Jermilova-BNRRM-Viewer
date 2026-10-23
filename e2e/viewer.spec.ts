@@ -48,6 +48,16 @@ test('read-only viewer: headers, six tabs, Detailed BN states, in-memory what-if
   await expect(wrapper(page).locator('> div').first().locator('svg.lucide-chevron-down')).toHaveCount(0);
   await expect(page.getByText('Frozen benchmark', { exact: false }).first()).toBeAttached();
 
+  // The data-licensing notice is rendered and visible below the viewer (DATA_LICENSE.md).
+  const notice = page.locator('footer[aria-labelledby="data-licensing-heading"]');
+  await notice.scrollIntoViewIfNeeded();
+  await expect(notice.getByRole('heading', { name: 'Data and licensing' })).toBeVisible();
+  await expect(notice.getByRole('link', { name: 'CC BY-NC-SA 4.0' })).toBeVisible();
+  await expect(notice.getByRole('link', { name: 'CC BY-NC-SA 4.0' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by-nc-sa/4.0/');
+  await expect(notice.getByRole('link', { name: 'doi:10.20383/103.0957' })).toBeVisible();
+  await expect(notice.getByText(/Changes: this viewer shows an adapted copy/)).toBeVisible();
+  await expect(notice.getByRole('link', { name: 'Full attribution and map layer sources' })).toHaveAttribute('href', '#data-licensing-sources');
+
   // Detailed BN: collapsed -> one group expanded -> fully expanded. At phone width the
   // original layout keeps both side panels open; hide them so the canvas has room.
   await openTab(page, 'Detailed BN');
@@ -93,6 +103,13 @@ test('read-only viewer: headers, six tabs, Detailed BN states, in-memory what-if
     await openTab(page, tab);
     await page.screenshot({ path: testInfo.outputPath(`${tab.replace(/\W+/g, '_')}.png`), fullPage: true });
   }
+
+  // The map's attribution control credits OpenStreetMap (linked) and the pack's layers.
+  await openTab(page, 'Map');
+  const attribution = page.locator('.leaflet-control-attribution');
+  await expect(attribution.locator('a[href="https://www.openstreetmap.org/copyright"]')).toHaveText('OpenStreetMap');
+  await expect(attribution).toContainText('Study-area layers: Jermilova & Hintelmann');
+  await expect(attribution.locator('a[href="https://creativecommons.org/licenses/by-nc-sa/4.0/"]')).toHaveText('CC BY-NC-SA 4.0');
 
   // Nothing was written anywhere, and nothing is stored.
   expect(await writeCounts(page)).toEqual(NO_WRITES);

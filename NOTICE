@@ -1,0 +1,32 @@
+Mackenzie Mercury Bayesian Network Viewer (Jermilova et al. 2025)
+Standalone read-only viewer software.
+
+Software licence
+----------------
+The software in this repository (source code, build and test scripts, configuration and
+software documentation) is licensed under the Apache License, Version 2.0. See LICENSE.
+
+This standalone repository was extracted from the SSTAC-Dashboard repository
+(https://github.com/JasenNelson/SSTAC-Dashboard) at commit
+1519044c8d10692da0fe5381fce2cc6bd115f1f8. Portions copied or adapted from that repository
+were distributed there under the MIT License, "Copyright (c) 2025 JasenNelson". That notice
+and permission notice are preserved, unmodified, in LICENSES/MIT.txt, and they continue to
+apply to those portions. PROVENANCE.md lists what was copied and what was changed. The
+Apache License 2.0 does not displace any right or notice of a third party.
+
+Research data (not covered by the Apache License)
+-------------------------------------------------
+The data pack under public/bn-rrm/ is adapted from a research dataset deposited in the
+Federated Research Data Repository (FRDR) by Una Jermilova and Holger Hintelmann
+(doi:10.20383/103.0957), which is distributed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International licence (CC BY-NC-SA 4.0). The
+adapted data remain under CC BY-NC-SA 4.0. See DATA_LICENSE.md for the citation, the changes
+made, the sources of the twelve map layers, and the conditions (attribution, NonCommercial,
+ShareAlike). The licence, including its full legal code, is published at
+https://creativecommons.org/licenses/by-nc-sa/4.0/ .
+
+Map tiles and overlays
+----------------------
+Basemap tiles and the British Columbia overlays are not part of this repository; the viewer
+loads them from their providers at view time, under the providers' own terms. Their
+attribution is shown in the map's attribution control and listed in DATA_LICENSE.md.
